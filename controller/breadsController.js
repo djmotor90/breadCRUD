@@ -6,7 +6,11 @@ const breadDataArray = require('../models/bread.js');
 // Static Routes
 breads.get('/', (request, response) => 
 {
-  response.send(breadDataArray)
+    response.render('Index',
+        {
+            breadDataArray: breadDataArray
+        }
+    )
 });
 breads.get('/error', (request, response) => 
 {

@@ -1,12 +1,16 @@
 //Initalize express and include environment variables
+    //Purpose: stores and defines environment variables
 require('dotenv').config();
+    //Purpose: initialize express framework
 const express = require('express');
 const app     = express();
 
 //Initialize the middleware
-// MIDDLEWARE
-app.set('views', __dirname + '/views')
-app.set('view engine', 'jsx')
+    //Purpose: go into the directory + views folder
+app.set('views', __dirname + '/views');
+    //Use the jsx ending and then use
+app.set('view engine', 'jsx');
+    //create the engine
 app.engine('jsx', require('express-react-views').createEngine())
 
 
