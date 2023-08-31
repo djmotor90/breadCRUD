@@ -1,7 +1,7 @@
 const React = require('react')
 const Default = require('./layouts/Default')
 
-function Index ({breadDataArray}) {
+function Index ({breadDataArray, title}) {
     return (
       <Default>
         {/* This is a JSX comment */}

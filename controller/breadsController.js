@@ -8,7 +8,8 @@ breads.get('/', (request, response) =>
 {
     response.render('Index',
         {
-            breadDataArray: breadDataArray
+            breadDataArray : breadDataArray,
+            title          : 'Bread Inventory List'
         }
     )
 });
