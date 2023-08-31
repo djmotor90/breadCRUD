@@ -35,7 +35,6 @@ app.get('*', (request,response) =>
 {
     //chain together the sent HTML and the HTTP status
     response.status(404).send('<h1> 404 Page not Found </h1>');
-
 });
 
 
