@@ -25,12 +25,15 @@ breads.get('/:arrayIndex', (request, response) =>
     const breadDataArrayIndexes = Array.from({ length : breadDataArray.length}, (value, index) => index);
     if (breadDataArrayIndexes.includes(parseInt(request.params.arrayIndex)))   
     {
-        response.send(breadDataArray[request.params.arrayIndex]);
+        response.render('showBreadInfo',
+        {
+            bread: breadDataArray[request.params.arrayIndex]
+        })
     }
     else
     {
         //redirect to the error page 
-        response.redirect('/breads/error');
+        response.send('404');
     }
 });
   

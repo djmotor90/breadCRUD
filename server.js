@@ -4,14 +4,15 @@ require('dotenv').config();
     //Purpose: initialize express framework
 const express = require('express');
 const app     = express();
-
-//Initialize the middleware
+    //Initialize the middleware
+app.use(express.static('public'));
     //Purpose: go into the directory + views folder
 app.set('views', __dirname + '/views');
     //Use the jsx ending and then use
 app.set('view engine', 'jsx');
     //create the engine
 app.engine('jsx', require('express-react-views').createEngine())
+
 
 
 
