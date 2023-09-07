@@ -7,20 +7,19 @@ function Default(html) {
       <title>{html.title || 'Default'}</title>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w==" crossOrigin="anonymous" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ==" crossOrigin="anonymous" />
+      <link rel = "stylesheet" href = "/topNav.css"/>
       <link rel = "stylesheet" href = "/main.css"/>
     </head>
     <body>
       <nav id = 'topNav'>
         <div id = "LHS">
           <img id="breadLogo" src = "/assets/breadIcon.png" alt="breadLogo"></img>
-          <span> BreadCRUD: A bakery site  </span>
+          <span> BreadCRUD: A Bakery Site  </span>
         </div>
-        <div id = "navigationLinks">
-          <ul>
-            <li> <a> Index of Breads</a></li>
-            <li> <a> Bake a Loaf </a> </li>
-          </ul>
-        </div>
+        <ul>
+            <li> <a href = "/breads"> Index of Breads</a></li>
+            <li> <a href = "/"> Bake a Loaf </a> </li>
+        </ul>
       </nav>
       <div className="wrapper">
         <header>
