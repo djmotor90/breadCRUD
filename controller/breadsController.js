@@ -33,7 +33,7 @@ breads.get('/:arrayIndex', (request, response) =>
     else
     {
         //redirect to the error page 
-        response.send('404');
+        response.status(404).render('errorPage');
     }
 });
   

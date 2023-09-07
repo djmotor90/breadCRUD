@@ -10,6 +10,18 @@ function Default(html) {
       <link rel = "stylesheet" href = "/main.css"/>
     </head>
     <body>
+      <nav id = 'topNav'>
+        <div id = "LHS">
+          <img id="breadLogo" src = "/assets/breadIcon.png" alt="breadLogo"></img>
+          <span> BreadCRUD: A bakery site  </span>
+        </div>
+        <div id = "navigationLinks">
+          <ul>
+            <li> <a> Index of Breads</a></li>
+            <li> <a> Bake a Loaf </a> </li>
+          </ul>
+        </div>
+      </nav>
       <div className="wrapper">
         <header>
           <h1><a href="/breads">BreadCRUD</a></h1>
