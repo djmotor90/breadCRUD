@@ -2,6 +2,7 @@ const express  = require('express');
 const breads   = express.Router();
 // Load in Data
 const breadDataArray = require('../models/bread.js');
+const bread = require('../models/bread.js');
 
 // Static Routes
 breads.get('/', (request, response) => 
@@ -13,10 +14,31 @@ breads.get('/', (request, response) =>
         }
     )
 });
-breads.get('/error', (request, response) => 
+
+breads.post('/', (request,response) =>
 {
-  response.send('You have entered an invalid bread array value');
+    if (!request.body.image) 
+    {
+      request.body.image = 'https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80';
+    }
+    if(request.body.hasGluten === 'on') 
+    {
+      request.body.hasGluten = true;
+    }
+    else 
+    {
+      request.body.hasGluten = false;
+    }
+    breadDataArray.push(request.body)
+    response.redirect('/breads')
 });
+
+
+breads.get('/new', (request, response) => 
+{
+    response.render('newBread');
+});
+
 //Dynamic Routes
 // SHOW
 breads.get('/:arrayIndex', (request, response) => 
@@ -27,14 +49,20 @@ breads.get('/:arrayIndex', (request, response) =>
     {
         response.render('showBreadInfo',
         {
-            bread: breadDataArray[request.params.arrayIndex]
-        })
+            bread: breadDataArray[request.params.arrayIndex],
+            index: request.params.arrayIndex
+        });
     }
     else
     {
         //redirect to the error page 
         response.status(404).render('errorPage');
     }
+});
+breads.delete('/:arrayIndex', (request, response) =>
+{
+    breadDataArray.splice(request.params.arrayIndex, 1);
+    response.status(303).redirect('/breads');
 });
   
 

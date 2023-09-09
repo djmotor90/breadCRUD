@@ -2,7 +2,9 @@
     //Purpose: stores and defines environment variables
 require('dotenv').config();
     //Purpose: initialize express framework
-const express = require('express');
+const express        = require('express');
+const methodOverride = require('method-override');
+
 const app     = express();
     //Initialize the middleware
 app.use(express.static('public'));
@@ -12,6 +14,11 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
     //create the engine
 app.engine('jsx', require('express-react-views').createEngine())
+    //set up the middleware for reading urlencoded string
+app.use(express.urlencoded({extended: true}));
+app.use(methodOverride('_method'));
+
+
 
 
 
