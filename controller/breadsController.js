@@ -1,9 +1,13 @@
+//Initialize Express
 const express  = require('express');
+//Intialize the router of breads
 const breads   = express.Router();
-// Load in Data
+
+
+// Load in Data from models
 const breadDataArray = require('../models/bread.js');
 
-// Static Routes
+// Static Routes first
 breads.get('/', (request, response) => 
 {
     response.render('index',
@@ -39,7 +43,7 @@ breads.get('/new', (request, response) =>
 });
 
 //Dynamic Routes
-// SHOW
+//Purpose: show the information for every existing bread
 breads.get('/:arrayIndex', (request, response) => 
 {
     // whitelist only the indexes that exist in the breadDataArray
@@ -48,8 +52,10 @@ breads.get('/:arrayIndex', (request, response) =>
     {
         response.render('showBreadInfo',
         {
-            bread: breadDataArray[request.params.arrayIndex],
-            index: request.params.arrayIndex
+            bread          : breadDataArray[request.params.arrayIndex],
+            index          : request.params.arrayIndex,
+            //
+            title          : breadDataArray.arrayIndex.name
         });
     }
     else
