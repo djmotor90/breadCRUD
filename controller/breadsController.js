@@ -64,6 +64,31 @@ breads.delete('/:arrayIndex', (request, response) =>
     breadDataArray.splice(request.params.arrayIndex, 1);
     response.status(303).redirect('/breads');
 });
+// UPDATE
+breads.put('/:arrayIndex', (request, response) => 
+{
+    if(request.body.hasGluten === 'on')
+    {
+      request.body.hasGluten = true;
+    } 
+    else 
+    {
+      request.body.hasGluten = false;
+    }
+    breadDataArray[request.params.arrayIndex] = request.body;
+    response.redirect(`/breads/${request.params.arrayIndex}`);
+});
+// EDIT
+breads.get('/:indexArray/edit', (request, response) => 
+{
+    response.render('editPage', 
+    {
+      bread: breadDataArray[request.params.indexArray],
+      index: request.params.indexArray
+    })
+})
+
+
   
 
 
