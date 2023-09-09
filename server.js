@@ -19,17 +19,14 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 
 
-
-
-
-
-
 //Environment Variables
 const PORT = process.env.PORT;
 
 //Initialize ROUTERS
+
 //Static Routes First
-app.get('/', (request,response) => {
+app.get('/', (request,response) => 
+{
     response.send('Entry Page');
 });
 

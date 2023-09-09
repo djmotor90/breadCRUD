@@ -2,12 +2,11 @@ const express  = require('express');
 const breads   = express.Router();
 // Load in Data
 const breadDataArray = require('../models/bread.js');
-const bread = require('../models/bread.js');
 
 // Static Routes
 breads.get('/', (request, response) => 
 {
-    response.render('Index',
+    response.render('index',
         {
             breadDataArray : breadDataArray,
             title          : 'Bread Inventory List'
