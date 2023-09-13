@@ -13,7 +13,7 @@ const app = express();
 app.use(express.static('public'));
     //Purpose: put into the directory + views folder
 app.set('views', __dirname + '/views');
-    //Use the jsx ending and then use
+    //Use the jsx engine and then set
 app.set('view engine', 'jsx');
     //create the engine
 app.engine('jsx', require('express-react-views').createEngine());
