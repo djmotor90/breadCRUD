@@ -1,18 +1,18 @@
 const React = require('react')
 const Default = require('./layouts/Default')
 
-function Index ({breadDataArray, title}) {
+function Index ({breadsData, title}) {
     return (
       <Default>
         {/* This is a JSX comment */}
         <h2>Index Page</h2>
         <ul>
             {
-                breadDataArray.map((bread, index) =>
+                breadsData.map((bread, index) =>
                 {
                     return(
                     <li key = {index}>
-                        <a href ={`/breads/${index}`}>
+                        <a href ={`/breads/${bread.id}`}>
                             {bread.name}  
                         </a>
                     </li>)

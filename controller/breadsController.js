@@ -5,24 +5,27 @@ const breads   = express.Router();
 
 
 // Load in Data from models
-const breadDataArray = require('../models/bread.js');
+const Bread = require('../models/bread.js');
 
 // Static Routes first
 breads.get('/', (request, response) => 
 {
-    response.render('index',
-        {
-            breadDataArray : breadDataArray,
-            title          : 'Bread Inventory List'
-        }
-    )
+  //Search the collection for all breads
+  Bread.find()
+    .then(foundBreads => {
+      response.render('index',
+      {
+          breadsData : foundBreads,
+          title : 'Bread Inventory List'
+      });
+    })
 });
 
 breads.post('/', (request,response) =>
 {
     if (!request.body.image) 
     {
-      request.body.image = 'https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80';
+        request.body.image = undefined;
     }
     if(request.body.hasGluten === 'on') 
     {
@@ -32,7 +35,7 @@ breads.post('/', (request,response) =>
     {
       request.body.hasGluten = false;
     }
-    breadDataArray.push(request.body)
+    Bread.create(request.body)
     response.redirect('/breads')
 });
 
@@ -44,53 +47,68 @@ breads.get('/new', (request, response) =>
 
 //Dynamic Routes
 //Purpose: show the information for every existing bread
-breads.get('/:arrayIndex', (request, response) => 
+breads.get('/:id', (request, response) => 
 {
-    // whitelist only the indexes that exist in the breadDataArray
-    const breadDataArrayIndexes = Array.from({ length : breadDataArray.length}, (value, index) => index);
-    if (breadDataArrayIndexes.includes(parseInt(request.params.arrayIndex)))   
+    Bread.findById(request.params.id)
+    .then(foundBread => 
     {
-        response.render('showBreadInfo',
+        response.render('showBreadInfo', 
         {
-            bread          : breadDataArray[request.params.arrayIndex],
-            index          : request.params.arrayIndex,
-            //
-            title          : breadDataArray.arrayIndex.name
+            bread: foundBread,
+            title: 'Bread Entry: ' + foundBread.name
         });
-    }
-    else
-    {
-        //redirect to the error page 
-        response.status(404).render('errorPage');
-    }
+    })
+    .catch(err => {
+      response.status(404).send('<h1> 404 Page not Found </h1>');
+    })
 });
-breads.delete('/:arrayIndex', (request, response) =>
+
+//DELETE a bread
+breads.delete('/:id', (request, response) =>
 {
-    breadDataArray.splice(request.params.arrayIndex, 1);
-    response.status(303).redirect('/breads');
+  Bread.findByIdAndDelete(request.params.id)
+  .then(deleteBread => 
+  {
+      response.status(303).redirect('/breads', 
+        {
+          //TODO write in a delete alert
+        });
+  })
 });
+
 // UPDATE
-breads.put('/:arrayIndex', (request, response) => 
+breads.put('/:id', (request, response) => 
 {
     if(request.body.hasGluten === 'on')
     {
-      request.body.hasGluten = true;
+      request.body.hasGluten = true
     } 
     else 
     {
-      request.body.hasGluten = false;
+      request.body.hasGluten = false
     }
-    breadDataArray[request.params.arrayIndex] = request.body;
-    response.redirect(`/breads/${request.params.arrayIndex}`);
+    Bread.findByIdAndUpdate(request.params.id, request.body, { new: true }) 
+      .then(updatedBread => {
+        console.log(updatedBread); 
+        response.redirect(`/breads/${request.params.id}`) 
+      })
 });
+
 // EDIT
-breads.get('/:indexArray/edit', (request, response) => 
+breads.get('/:id/edit', (request, response) => 
 {
-    response.render('editPage', 
-    {
-      bread: breadDataArray[request.params.indexArray],
-      index: request.params.indexArray
-    })
+  Bread.findById(request.params.id)
+  .then(foundBread => 
+  {
+      response.render('editPage', 
+      {
+          bread: foundBread,
+          title: 'Bread Entry: ' + foundBread.name + "Edit"
+      });
+  })
+  .catch(err => {
+    response.status(404).send('<h1> 404 Page not Found </h1>');
+  })
 })
 
 
