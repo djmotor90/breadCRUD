@@ -4,7 +4,7 @@ require('dotenv').config();
     //Purpose: initialize express framework
 const express        = require('express');
     //Purpose: initialize our ODM to MongoDB
-const mongoose       = require('mongoose');
+// const mongoose       = require('mongoose');
     //Purpose: overrides methods to allow forms to submit as put, delete, etc, anything other than its usual POST or GET
 const methodOverride = require('method-override');
 const mongoose = require('mongoose')
