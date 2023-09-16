@@ -5,7 +5,7 @@ const {Schema} = mongoose;
 //Purpose: Define our collection and create validation rules
 const breadSchema = new Schema(
   {
-      name      : {type : String, required: 'true'},
+      name      : {type : String, required: true},
       hasGluten : {type : Boolean},
       image     : {type : String, default: 'http://placehold.it/500x500.png'}  
   }
